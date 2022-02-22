@@ -3,7 +3,8 @@ const express = require('express'),
      morgan = require('morgan'),
      bodyParser = require('body-parser');
 
-const dishRouter = require('./routes/dishRouter')
+const dishRouter = require('./routes/dishRouter');
+const leaderRouter = require('./routes/leadersRouter');
 const hostname = 'localhost';
 const port = 3000;
 
@@ -16,17 +17,7 @@ app.use(bodyParser.json());
 
 /* Mount point for the mini-app*/
 app.use('/dishes',dishRouter);
-
-/*TODO Create a mini-app for the below resources*/
-app.put('/dishes/:dishId', (req, res, next) => {
-  res.write('Updating the dish: ' + req.params.dishId + '\n');
-  res.end('Will update the dish: ' + req.body.name +
-        ' with details: ' + req.body.description);
-});
-
-app.delete('/dishes/:dishId', (req, res, next) => {
-    res.end('Deleting dish: ' + req.params.dishId);
-});
+app.use('/leaders',leaderRouter);
 
 app.use((req, res, next) => {
   console.log(req.headers);
